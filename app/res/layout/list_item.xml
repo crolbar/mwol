@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="#101010">
+
+    <TextView
+        android:id="@+id/item_port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:background="#161616"/>
+
+    <TextView
+        android:id="@+id/item_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:background="#101010"/>
+
+    <TextView
+        android:id="@+id/item_mac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:background="#161616"/>
+
+    <Button
+        android:id="@+id/item_button"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#101010"
+        android:text="Send Again" />
+</LinearLayout>

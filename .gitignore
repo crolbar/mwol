@@ -1,0 +1,11 @@
+*~
+.gradle
+build
+app/build
+.direnv
+.idea
+local.properties
+.project
+.settings/
+app/.classpath
+app/.project

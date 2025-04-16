@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace = "com.mwol"
+    compileSdkVersion 35
+
+    defaultConfig {
+        applicationId "com.mwol"
+        minSdkVersion 34
+        targetSdkVersion 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.12.0'
+}
