@@ -14,19 +14,25 @@
       }
     );
 
-    sdkVersion = "35";
-    buildToolsVersion = "35.0.0";
-    platformToolsVersion = "35.0.1";
+    lib = pkgs.lib;
 
-    androidComposition = pkgs.androidenv.composeAndroidPackages {
-      includeNDK = false;
-      includeSystemImages = false;
-      includeEmulator = false;
-      platformVersions = [sdkVersion];
-      buildToolsVersions = [buildToolsVersion];
-      platformToolsVersion = platformToolsVersion;
-    };
-    androidSdk = androidComposition.androidsdk;
+    buildToolsVersion = "35.0.0";
+    sdkVersion = "35";
+    androidSdk = let
+      platformToolsVersion = "35.0.1";
+
+      androidComposition = pkgs.androidenv.composeAndroidPackages {
+        includeNDK = false;
+        includeSystemImages = false;
+        includeEmulator = false;
+        platformVersions = [sdkVersion];
+        buildToolsVersions = [buildToolsVersion];
+        platformToolsVersion = platformToolsVersion;
+      };
+    in
+      androidComposition.androidsdk;
+
+    pname = "mwol";
   in {
     devShells.${system}.default = pkgs.mkShell rec {
       packages = with pkgs; [
@@ -35,11 +41,14 @@
         gradle
         jdt-language-server
 
-        (pkgs.writers.writeBashBin "prun" ''
-          dev="192.168.1.2:38391"
-          adb -s $dev install app/build/outputs/apk/debug/app-debug.apk
-          adb -s $dev shell am start -n com.mwol/.MainActivity
-        '')
+        (let
+          adb = lib.getExe' pkgs.android-tools "adb";
+        in
+          pkgs.writers.writeBashBin "prun" ''
+            dev="192.168.1.2:38391"
+            ${adb} -s $dev install app/build/outputs/apk/debug/app-debug.apk
+            ${adb} -s $dev shell am start -n com.${pname}/.MainActivity
+          '')
       ];
 
       ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
